@@ -27,7 +27,10 @@ namespace GreeterServer
             double sum = 0;
             foreach (double i in request.Number)
             {
-                sum = sum + i;
+                if (i > 0)
+                {
+                    sum = sum + i;
+                }
             }            
             return Task.FromResult(new HelloReply { Message = sum });
         }

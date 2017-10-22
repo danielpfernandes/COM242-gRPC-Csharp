@@ -25,7 +25,7 @@ namespace GreeterClient
             Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);
 
             var client = new Greeter.GreeterClient(channel);
-            double[] value = { 5, 7, 10, 15, 100.15};
+            double[] value = { 5, 7, 10, 15, 100.15, 123, -120};
             
             var reply = client.SayHello(new HelloRequest { Number = { value } });
             Console.WriteLine("Greeting: " + reply.Message);
