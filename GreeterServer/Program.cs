@@ -40,22 +40,40 @@ namespace GreeterServer
 
     class Program
     {
-        const int Port = 50051;
+        const int Port = 5000;
 
         public static void Main(string[] args)
         {
-            Server server = new Server
+            if (args.Length != 0)
             {
-                Services = { Greeter.BindService(new GreeterImpl()) },
-                Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
-            };
-            server.Start();
+                Server server = new Server
+                {
+                    Services = { Greeter.BindService(new GreeterImpl()) },
+                    Ports = { new ServerPort("localhost", int.Parse(args[0]), ServerCredentials.Insecure) }
+                };
+                server.Start();
 
-            Console.WriteLine("Greeter server listening on port " + Port);
-            Console.WriteLine("Press any key to stop the server...");
-            Console.ReadKey();
+                Console.WriteLine("Greeter server listening on port " + args[0]);
+                Console.WriteLine("Press any key to stop the server...");
+                Console.ReadKey();
 
-            server.ShutdownAsync().Wait();
+                server.ShutdownAsync().Wait();
+            }
+            else
+            {
+                Server server = new Server
+                {
+                    Services = { Greeter.BindService(new GreeterImpl()) },
+                    Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
+                };
+                server.Start();
+
+                Console.WriteLine("Greeter server listening on port " + Port);
+                Console.WriteLine("Press any key to stop the server...");
+                Console.ReadKey();
+
+                server.ShutdownAsync().Wait();
+            }
         }
     }
 }
