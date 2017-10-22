@@ -22,11 +22,20 @@ namespace GreeterClient
     {
         public static void Main(string[] args)
         {
-            Channel channel = new Channel("127.0.0.1:50051", ChannelCredentials.Insecure);
+            var ip = "127.0.0.1";
+            var porta = "50051";
 
+            if (args.Length != 0)
+            {
+                ip = args[0];
+                porta = args[1];
+            }
+            Channel channel = new Channel(ip + ":" + porta, ChannelCredentials.Insecure);
+            
             var client = new Greeter.GreeterClient(channel);
             double[] value = { 5, 7, 10, 15, 100.15, 123, -120};
-            
+
+            Console.WriteLine("Acessando servidor " + ip +" na porta " + porta);
             var reply = client.SayHello(new HelloRequest { Number = { value } });
             Console.WriteLine("Greeting: " + reply.Message);
 
