@@ -33,7 +33,7 @@ namespace GreeterClient
             Channel channel = new Channel(ip + ":" + porta, ChannelCredentials.Insecure);
             
             var client = new Greeter.GreeterClient(channel);
-            double[] value = { 5, 7, 10, 15, 100.15, 123, -120};
+            double[] value = { 5, 7, 10, 15, 100.15, 123, -120, 1000, -50000};
 
             Console.WriteLine("Acessando servidor " + ip +" na porta " + porta);
             var reply = client.SayHello(new HelloRequest { Number = { value } });

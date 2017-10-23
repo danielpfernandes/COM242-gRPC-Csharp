@@ -40,7 +40,7 @@ namespace GreeterServer
 
     class Program
     {
-        const int Port = 5000;
+        const int Port = 11234;
 
         public static void Main(string[] args)
         {
@@ -49,7 +49,7 @@ namespace GreeterServer
                 Server server = new Server
                 {
                     Services = { Greeter.BindService(new GreeterImpl()) },
-                    Ports = { new ServerPort("localhost", int.Parse(args[0]), ServerCredentials.Insecure) }
+                    Ports = { new ServerPort("0.0.0.0", int.Parse(args[0]), ServerCredentials.Insecure) }
                 };
                 server.Start();
 
