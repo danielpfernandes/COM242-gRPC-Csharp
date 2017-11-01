@@ -37,7 +37,7 @@ namespace GreeterClient
 
             Console.WriteLine("Acessando servidor " + ip +" na porta " + porta);
             var reply = client.SayHello(new HelloRequest { Number = { value } });
-            Console.WriteLine("Greeting: " + reply.Message);
+            Console.WriteLine("Valor: " + reply.Message);
 
             channel.ShutdownAsync().Wait();
             Console.WriteLine("Press any key to exit...");

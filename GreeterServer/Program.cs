@@ -27,7 +27,7 @@ namespace GreeterServer
             double sum = 0;
             foreach (double i in request.Number)
             {
-                if (i > 0)
+                if (i < 0)
                 {
                     sum = sum + i;
                 }
