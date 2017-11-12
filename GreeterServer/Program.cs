@@ -21,17 +21,18 @@ namespace GreeterServer
 {
     class GreeterImpl : Greeter.GreeterBase
     {
-        // Server side handler of the SayHello RPC
+        // Server side handler do RPC
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
+            //Seta a variável que receberá a soma dos valores contidos no vetor que será
+            //enviado pelo cliente
             double sum = 0;
             foreach (double i in request.Number)
-            {
-                if (i < 0)
-                {
+            {   
+                    //soma o valor daquela posição do vetor recursivamente
                     sum = sum + i;
-                }
             }            
+            //retorna a soma dos valores no vetor enviado
             return Task.FromResult(new HelloReply { Message = sum });
         }
 
@@ -40,15 +41,18 @@ namespace GreeterServer
 
     class Program
     {
+        //atribui a porta padrão 11234 caso não seja passado argumento
         const int Port = 11234;
 
         public static void Main(string[] args)
         {
+            //se o usuário passar argumentos na linha de comando
             if (args.Length != 0)
             {
                 Server server = new Server
                 {
                     Services = { Greeter.BindService(new GreeterImpl()) },
+                    //Ouve requisições na porta especificada no arg[0]
                     Ports = { new ServerPort("0.0.0.0", int.Parse(args[0]), ServerCredentials.Insecure) }
                 };
                 server.Start();
@@ -59,6 +63,7 @@ namespace GreeterServer
 
                 server.ShutdownAsync().Wait();
             }
+            //se não receber argumentos, inicializa na porta padrão
             else
             {
                 Server server = new Server
